@@ -1,0 +1,18 @@
+const SolrNode = require('solr-node')
+const _ = require('lodash')
+
+const solrClient = new SolrNode({
+  host: 'localhost',
+  port: 8983,
+  core: 'leads', // Replace with your Solr core name
+})
+
+ const solrQuery = solrClient.query().q('*:*') 
+solrQuery.fl(['mysqlid'])
+
+ solrQuery.addParams({ fq: filterQuery })
+
+ const solrResponse = await solrClient.search(solrQuery)
+
+  // Extract and transform Solr search results to match DevExtreme format
+  let data = solrResponse.response.docs
